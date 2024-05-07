@@ -1,0 +1,24 @@
+﻿@model Category
+
+<form method="post" class="pt-3">
+    <fieldset class="border">
+        <legend class="p-2">Create Category</legend>
+        <div class="p-2">
+            <label asp-for="Name" class="form-label mt-2"></label>
+            <input asp-for="Name" class="form-control" placeholder="Self Help">
+            <span asp-validation-for="Name" class="text-warning"></span>
+        </div>
+        <div class="p-2">
+            <label asp-for="DisplayOrder" class="form-label"></label>
+            <input asp-for="DisplayOrder" class="form-control" placeholder="5" autocomplete="off">
+            <span asp-validation-for="DisplayOrder" class="text-warning"></span>
+        </div>
+        <div class=" p-2">
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-controller="Category" asp-action="Index" class="btn btn-outline-light">
+                Return to List
+            </a>
+        </div>
+
+    </fieldset>
+</form>
