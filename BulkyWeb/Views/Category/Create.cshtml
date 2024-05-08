@@ -13,6 +13,8 @@
             <input asp-for="DisplayOrder" class="form-control" placeholder="5" autocomplete="off">
             <span asp-validation-for="DisplayOrder" class="text-warning"></span>
         </div>
+        @* <div asp-validation-summary="All"></div>  DISPLAYS ALL ERROR MESSAGES AT ONE PLACE*@
+        @* <div asp-validation-summary="ModelOnly"></div> DISPLAYS ERROR GLOBALLY, RELATED TO THAT MODEL *@
         <div class=" p-2">
             <button type="submit" class="btn btn-primary">Create</button>
             <a asp-controller="Category" asp-action="Index" class="btn btn-outline-light">
@@ -22,3 +24,12 @@
 
     </fieldset>
 </form>
+
+@*Adding client side validation using inbuilt validation scripts*@
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial"></partial> 
+        // Automatically checks in the Shared directory as Partial views are stored their by default
+    }
+}
