@@ -15,6 +15,7 @@
             <tr class="table-dark">
                 <th>Category Name</th>
                 <th>Display Order</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +24,17 @@
                 <tr class="table-light">
                     <td>@obj.Name</td>
                     <td>@obj.DisplayOrder</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary">
+                                @*asp-route can have anything in front of it. I used id since that is used in controller*@
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            <a asp-controller="Category" asp-action="Delete" class="btn btn-danger">
+                                <i class="bi bi-trash-fill"></i> Delete
+                            </a>
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>
