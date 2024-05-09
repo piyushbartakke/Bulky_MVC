@@ -75,6 +75,13 @@ namespace BulkyWeb.Controllers
         [HttpPost]
         public IActionResult Edit(Category obj) 
         {
+            if(ModelState.IsValid)
+            {
+                _db.Categories.Update(obj); // creates a new record if the Id is 0 or null  --> to avoid this, use hidden input property in the Edit.cshtml
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
             return View();
         }
     }
