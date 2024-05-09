@@ -49,6 +49,9 @@ namespace BulkyWeb.Controllers
             {
                 _db.Categories.Add(obj);    //inserting into the database
                 _db.SaveChanges();          //only after this are the changes saved to database
+
+                TempData["success"] = "Category created successfully";  //for notifications
+
                 return RedirectToAction("Index"); //in different controller: ("Index", "Category")
             }
 
@@ -80,6 +83,9 @@ namespace BulkyWeb.Controllers
             {
                 _db.Categories.Update(obj); // creates a new record if the Id is 0 or null  --> to avoid this, use hidden input property in the Edit.cshtml
                 _db.SaveChanges();
+
+                TempData["success"] = "Category edited successfully";   //for notifications
+
                 return RedirectToAction("Index");
             }
 
@@ -112,6 +118,8 @@ namespace BulkyWeb.Controllers
             
             _db.Categories.Remove(objToBeRemoved);
             _db.SaveChanges();
+
+            TempData["success"] = "Category deleted successfully";
 
             return RedirectToAction("Index");            
         }

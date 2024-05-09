@@ -1,5 +1,9 @@
 ﻿@model List<Category>
 
+@if(TempData["success"] != null) @*for displating notification*@
+{
+    <h4 class="mt-2 p-1 text-bg-success ">@TempData["success"]</h4>
+}
 
 <div class="containter">
     <div class="row pt-4 pb-2">
