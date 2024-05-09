@@ -1,6 +1,7 @@
 ﻿using BulkyWeb.Data;
 using BulkyWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BulkyWeb.Controllers
 {
@@ -80,6 +81,40 @@ namespace BulkyWeb.Controllers
                 _db.Categories.Update(obj); // creates a new record if the Id is 0 or null  --> to avoid this, use hidden input property in the Edit.cshtml
                 _db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+        //-------------------------------------------------------------------------------------
+        //Delete action methods
+
+        public IActionResult Delete(int? id) 
+        {
+            if(id == null || id == 0)
+                return NotFound();
+
+            Category? categoryFromDb = _db.Categories.Find(id);
+            if (categoryFromDb == null)
+                return NotFound();
+          
+            return View(categoryFromDb);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(FormCollection form)    //INCORRECT
+        {
+            int categoryId;
+            if (int.TryParse(form["Id"],out categoryId))
+            {
+                var categoryToDelete = _db.Categories.Find(categoryId);
+                
+                if (categoryToDelete != null)
+                {
+                    _db.Categories.Remove(categoryToDelete);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
             return View();
