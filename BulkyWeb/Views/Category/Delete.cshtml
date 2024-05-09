@@ -22,7 +22,7 @@
             </dd>
         </dl>
 
-        <form method="post" asp-action="Delete" class="p-2">
+        <form method="post" asp-controller="Category" asp-action="Delete" class="p-2">
             @* <input type="hidden" asp-for="Id" /> *@
             @Html.HiddenFor(model => model.Id)
             <input type="submit" value="Delete" class="btn btn-danger" />

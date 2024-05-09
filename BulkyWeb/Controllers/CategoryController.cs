@@ -95,29 +95,25 @@ namespace BulkyWeb.Controllers
                 return NotFound();
 
             Category? categoryFromDb = _db.Categories.Find(id);
+
             if (categoryFromDb == null)
                 return NotFound();
           
             return View(categoryFromDb);
         }
 
-        [HttpPost]
-        public IActionResult Delete(FormCollection form)    //INCORRECT
+        [HttpPost, ActionName("Delete")]    //because cant have same name action method with same parameters
+        public IActionResult DeletePOST(int? id)
         {
-            int categoryId;
-            if (int.TryParse(form["Id"],out categoryId))
-            {
-                var categoryToDelete = _db.Categories.Find(categoryId);
-                
-                if (categoryToDelete != null)
-                {
-                    _db.Categories.Remove(categoryToDelete);
-                    _db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
+            Category? objToBeRemoved = _db.Categories.Find(id);
 
-            return View();
+            if(objToBeRemoved == null)
+                return NotFound(); 
+            
+            _db.Categories.Remove(objToBeRemoved);
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");            
         }
     }
 }
