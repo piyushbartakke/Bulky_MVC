@@ -1,9 +1,13 @@
 ﻿@model List<Category>
 
-@if(TempData["success"] != null) @*for displating notification*@
+@*Using TempData for displaying notifications*@
+@* @if(TempData["success"] != null)
 {
     <h4 class="mt-2 p-1 text-bg-success ">@TempData["success"]</h4>
-}
+} *@
+
+@*Using partial views for displaying notifications*@
+<partial name="_Notification"/>
 
 <div class="containter">
     <div class="row pt-4 pb-2">
