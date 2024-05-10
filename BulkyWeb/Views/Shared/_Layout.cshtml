@@ -3,11 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BulkyWeb</title>
+    <title>@ViewData["Title"]BulkyBooks</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BulkyWeb.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 </head>
 <body>
     <header>
@@ -77,12 +78,13 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <partial name="_Notification" /> @*toastr notification*@
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted bg-dark">
-        <div class="container text-center">
+        <div class="container text-end">
             Made with &nbsp <i class="bi bi-heart-fill"></i> &nbsp by Piyush
         </div>
     </footer>
