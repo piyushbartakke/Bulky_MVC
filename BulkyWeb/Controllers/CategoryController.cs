@@ -1,4 +1,5 @@
 ﻿using Bulky.DataAccess.Data;
+using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,16 +9,19 @@ namespace BulkyWeb.Controllers
     public class CategoryController : Controller
     {
         //-------------------------------------------------------------------------------------
-        private readonly ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db) 
+        //private readonly ApplicationDbContext _db;
+        //later changed while using Repository pattern
+
+        private readonly ICategoryRepository _categoryRepo;
+        public CategoryController(ICategoryRepository db) 
         {
-            _db = db;   //basically dependency injection
+            _categoryRepo = db;   //basically dependency injection
         }
 
         //-------------------------------------------------------------------------------------
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _db.Categories.ToList();
+            List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
             return View(objCategoryList);
         }
 
@@ -47,8 +51,8 @@ namespace BulkyWeb.Controllers
             
             if(ModelState.IsValid) 
             {
-                _db.Categories.Add(obj);    //inserting into the database
-                _db.SaveChanges();          //only after this are the changes saved to database
+                _categoryRepo.Add(obj);    //inserting into the database
+                _categoryRepo.Save();          //only after this are the changes saved to database
 
                 TempData["success"] = "Category created successfully";  //for notifications
 
@@ -69,7 +73,7 @@ namespace BulkyWeb.Controllers
             //Category? categoryFromDb1 = _db.Categories.FirstOrDefault(u => u.Id == id); --> prefer this as it can be used with non-primary key as well
             //Category? categroyFromDb2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault(); --> when a number of filtering operations is to be done
             
-            Category? categoryFromDb = _db.Categories.Find(id); //only works with primary key
+            Category? categoryFromDb = _categoryRepo.Get(u => u.Id == id); //only works with primary key
             if (categoryFromDb == null)
                 return NotFound();
 
@@ -81,8 +85,8 @@ namespace BulkyWeb.Controllers
         {
             if(ModelState.IsValid)
             {
-                _db.Categories.Update(obj); // creates a new record if the Id is 0 or null  --> to avoid this, use hidden input property in the Edit.cshtml
-                _db.SaveChanges();
+                _categoryRepo.Update(obj); // creates a new record if the Id is 0 or null  --> to avoid this, use hidden input property in the Edit.cshtml
+                _categoryRepo.Save();
 
                 TempData["success"] = "Category edited successfully";   //for notifications
 
@@ -100,7 +104,7 @@ namespace BulkyWeb.Controllers
             if(id == null || id == 0)
                 return NotFound();
 
-            Category? categoryFromDb = _db.Categories.Find(id);
+            Category? categoryFromDb = _categoryRepo.Get(u => u.Id ==id);
 
             if (categoryFromDb == null)
                 return NotFound();
@@ -111,13 +115,13 @@ namespace BulkyWeb.Controllers
         [HttpPost, ActionName("Delete")]    //because cant have same name action method with same parameters
         public IActionResult DeletePOST(int? id)
         {
-            Category? objToBeRemoved = _db.Categories.Find(id);
+            Category? objToBeRemoved = _categoryRepo.Get(u => u.Id == id);
 
             if(objToBeRemoved == null)
                 return NotFound(); 
             
-            _db.Categories.Remove(objToBeRemoved);
-            _db.SaveChanges();
+            _categoryRepo.Remove(objToBeRemoved);
+            _categoryRepo.Save();
 
             TempData["success"] = "Category deleted successfully";
 
