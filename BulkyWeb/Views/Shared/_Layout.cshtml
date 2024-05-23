@@ -44,18 +44,19 @@
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" asp-controller="Home" asp-action="Index">Home
+                            <a class="nav-link active" asp-area="Customer" asp-controller="Home" asp-action="Index">Home
                                 <span class="visually-hidden">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" asp-controller="Category" asp-action="Index">Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link active" href="#">About</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Content Management <i class="bi bi-sliders2-vertical"></i></a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+                                <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+                            </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Our Stores <i class="bi bi-globe-central-south-asia"></i></a>
@@ -66,6 +67,9 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-dark" href="#">Search on map</a>
                             </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
                     <form class="d-flex">
