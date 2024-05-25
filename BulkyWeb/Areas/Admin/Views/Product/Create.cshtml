@@ -1,0 +1,64 @@
+﻿@model Product
+
+<form method="post" class="pt-3">
+    <fieldset class="border">
+        <legend class="p-2">Create Product</legend>
+        <div class="p-2">
+            <label asp-for="Title" class="form-label mt-2"></label>
+            <input asp-for="Title" class="form-control" placeholder="The Ramayana">
+            <span asp-validation-for="Title" class="text-warning"></span>
+        </div>
+        <div class="p-2">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea asp-for="Description" class="form-control" placeholder="It is a cornerstone of Hindu literature and one of the two major Sanskrit epics of ancient Indian literature, the other being the Mahabharata." autocomplete="off"></textarea>
+            <span asp-validation-for="Description" class="text-warning"></span>
+        </div>
+        <div class="p-2">
+            <label asp-for="ISBN" class="form-label"></label>
+            <input asp-for="ISBN" class="form-control" placeholder="0-1965-6977-X" autocomplete="off">
+            <span asp-validation-for="ISBN" class="text-warning"></span>
+        </div>        
+        <div class="p-2">
+            <label asp-for="Author" class="form-label"></label>
+            <input asp-for="Author" class="form-control" placeholder="Sage Valmiki" autocomplete="off">
+            <span asp-validation-for="Author" class="text-warning"></span>
+        </div>        
+        <div class="p-2">
+            <label asp-for="ListPrice" class="form-label"></label>
+            <input asp-for="ListPrice" class="form-control" placeholder="100" autocomplete="off">
+            <span asp-validation-for="ListPrice" class="text-warning"></span>
+        </div>        
+        <div class="p-2">
+            <label asp-for="Price" class="form-label"></label>
+            <input asp-for="Price" class="form-control" placeholder="95" autocomplete="off">
+            <span asp-validation-for="Price" class="text-warning"></span>
+        </div>        
+        <div class="p-2">
+            <label asp-for="Price50" class="form-label"></label>
+            <input asp-for="Price50" class="form-control" placeholder="90" autocomplete="off">
+            <span asp-validation-for="Price50" class="text-warning"></span>
+        </div>           
+        <div class="p-2">
+            <label asp-for="Price100" class="form-label"></label>
+            <input asp-for="Price100" class="form-control" placeholder="85" autocomplete="off">
+            <span asp-validation-for="Price100" class="text-warning"></span>
+        </div>
+
+        <div class=" p-2">
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-controller="Product" asp-action="Index" class="btn btn-outline-light">
+                Return to List
+            </a>
+        </div>
+
+    </fieldset>
+</form>
+
+@*Adding client side validation using inbuilt validation scripts*@
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial"></partial> 
+        // Automatically checks in the Shared directory as Partial views are stored their by default
+    }
+}
