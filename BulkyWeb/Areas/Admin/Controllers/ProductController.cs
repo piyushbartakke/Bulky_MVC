@@ -2,7 +2,9 @@
 using Bulky.DataAccess.Repository;
 using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
+using Bulky.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace BulkyWeb.Areas.Admin.Controllers
@@ -22,7 +24,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
         public IActionResult Index()
         {
             List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();
-
+                  
             return View(objProductList);
         }
 
@@ -30,24 +32,50 @@ namespace BulkyWeb.Areas.Admin.Controllers
         //Create action methods
         public IActionResult Create()
         {
-            return View();
+            //using projection feature
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll()
+                .Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                });
+
+            //ViewBag.CategoryList = CategoryList;  --> replaced by ViewModel
+
+            ProductVM productVM = new() 
+            {
+                CategoryList = CategoryList,    //NOTE: comma instead of semicolon
+                Product = new Product()
+            };
+
+            return View(productVM);
         }
 
         [HttpPost]
-        public IActionResult Create(Product obj)
+        public IActionResult Create(ProductVM productVM)
         {
 
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Add(obj);
+                _unitOfWork.Product.Add(productVM.Product);
                 _unitOfWork.Save();
 
                 TempData["success"] = "Product added successfully";  //for notifications
 
                 return RedirectToAction("Index"); //in different controller: ("Index", "Category")
             }
+            else    //if the ModelState is not valid, populate the dropdown without showing exception   
+            {
+                productVM.CategoryList = _unitOfWork.Category.GetAll()
+                    .Select(u => new SelectListItem
+                    {
+                        Text = u.Name,
+                        Value = u.Id.ToString()
+                    });
 
-            return View();
+                return View(productVM);
+            }
+
         }
 
         //-------------------------------------------------------------------------------------

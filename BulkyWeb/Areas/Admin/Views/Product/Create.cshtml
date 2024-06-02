@@ -1,47 +1,61 @@
-﻿@model Product
+﻿@model ProductVM
 
 <form method="post" class="pt-3">
     <fieldset class="border">
         <legend class="p-2">Create Product</legend>
         <div class="p-2">
-            <label asp-for="Title" class="form-label mt-2"></label>
-            <input asp-for="Title" class="form-control" placeholder="The Ramayana">
-            <span asp-validation-for="Title" class="text-warning"></span>
+            <label asp-for="Product.Title" class="form-label mt-2"></label>
+            <input asp-for="Product.Title" class="form-control" placeholder="The Ramayana">
+            <span asp-validation-for="Product.Title" class="text-warning"></span>
         </div>
         <div class="p-2">
-            <label asp-for="Description" class="form-label"></label>
-            <textarea asp-for="Description" class="form-control" placeholder="It is a cornerstone of Hindu literature and one of the two major Sanskrit epics of ancient Indian literature, the other being the Mahabharata." autocomplete="off"></textarea>
-            <span asp-validation-for="Description" class="text-warning"></span>
+            <label asp-for="Product.Description" class="form-label"></label>
+            <textarea asp-for="Product.Description" class="form-control" placeholder="It is a cornerstone of Hindu literature and one of the two major Sanskrit epics of ancient Indian literature, the other being the Mahabharata." autocomplete="off"></textarea>
+            <span asp-validation-for="Product.Description" class="text-warning"></span>
         </div>
         <div class="p-2">
-            <label asp-for="ISBN" class="form-label"></label>
-            <input asp-for="ISBN" class="form-control" placeholder="0-1965-6977-X" autocomplete="off">
-            <span asp-validation-for="ISBN" class="text-warning"></span>
+            <label asp-for="Product.ISBN" class="form-label"></label>
+            <input asp-for="Product.ISBN" class="form-control" placeholder="0-1965-6977-X" autocomplete="off">
+            <span asp-validation-for="Product.ISBN" class="text-warning"></span>
         </div>        
         <div class="p-2">
-            <label asp-for="Author" class="form-label"></label>
-            <input asp-for="Author" class="form-control" placeholder="Sage Valmiki" autocomplete="off">
-            <span asp-validation-for="Author" class="text-warning"></span>
+            <label asp-for="Product.Author" class="form-label"></label>
+            <input asp-for="Product.Author" class="form-control" placeholder="Sage Valmiki" autocomplete="off">
+            <span asp-validation-for="Product.Author" class="text-warning"></span>
         </div>        
         <div class="p-2">
-            <label asp-for="ListPrice" class="form-label"></label>
-            <input asp-for="ListPrice" class="form-control" placeholder="100" autocomplete="off">
-            <span asp-validation-for="ListPrice" class="text-warning"></span>
+            <label asp-for="Product.ListPrice" class="form-label"></label>
+            <input asp-for="Product.ListPrice" class="form-control" placeholder="100" autocomplete="off">
+            <span asp-validation-for="Product.ListPrice" class="text-warning"></span>
         </div>        
         <div class="p-2">
-            <label asp-for="Price" class="form-label"></label>
-            <input asp-for="Price" class="form-control" placeholder="95" autocomplete="off">
-            <span asp-validation-for="Price" class="text-warning"></span>
+            <label asp-for="Product.Price" class="form-label"></label>
+            <input asp-for="Product.Price" class="form-control" placeholder="95" autocomplete="off">
+            <span asp-validation-for="Product.Price" class="text-warning"></span>
         </div>        
         <div class="p-2">
-            <label asp-for="Price50" class="form-label"></label>
-            <input asp-for="Price50" class="form-control" placeholder="90" autocomplete="off">
-            <span asp-validation-for="Price50" class="text-warning"></span>
+            <label asp-for="Product.Price50" class="form-label"></label>
+            <input asp-for="Product.Price50" class="form-control" placeholder="90" autocomplete="off">
+            <span asp-validation-for="Product.Price50" class="text-warning"></span>
         </div>           
         <div class="p-2">
-            <label asp-for="Price100" class="form-label"></label>
-            <input asp-for="Price100" class="form-control" placeholder="85" autocomplete="off">
-            <span asp-validation-for="Price100" class="text-warning"></span>
+            <label asp-for="Product.Price100" class="form-label"></label>
+            <input asp-for="Product.Price100" class="form-control" placeholder="85" autocomplete="off">
+            <span asp-validation-for="Product.Price100" class="text-warning"></span>
+        </div>        
+        <div class="p-2">
+            <label asp-for="Product.ImageUrl" class="form-label"></label>
+            <input asp-for="Product.ImageUrl" class="form-control" placeholder="www.imageurl.com" autocomplete="off">
+            <span asp-validation-for="Product.ImageUrl" class="text-warning"></span>
+        </div>
+        <div class="p-2">
+            <label asp-for="Product.CategoryId" class="form-label"></label>
+            @* <select asp-for="Product.CategoryId" class="form-select" asp-items="ViewBag.CategoryList"> *@
+            @* Instead of ViewBag and ViewData, it's better to use ViewModel, which I have done below *@
+            <select asp-for="Product.CategoryId" class="form-select" asp-items="@Model.CategoryList">
+                <option disabled selected>--Select Category--</option>
+            </select>
+            <span asp-validation-for="Product.CategoryId" class="text-warning"></span>
         </div>
 
         <div class=" p-2">
