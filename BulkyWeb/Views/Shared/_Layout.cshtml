@@ -72,6 +72,10 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @* For rich text area *@
+    <script src="https://cdn.tiny.cloud/1/cug2ndy5vl1tchwjstn30k6393g79h0dbkbbivrybpo1ttjw/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
