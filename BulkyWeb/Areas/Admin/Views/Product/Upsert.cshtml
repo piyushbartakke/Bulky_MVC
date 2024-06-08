@@ -1,7 +1,11 @@
 ﻿@model ProductVM
 
+<<<<<<< HEAD:BulkyWeb/Areas/Admin/Views/Product/Upsert.cshtml
 <form method="post" class="pt-3" enctype="multipart/form-data"> @* for making file upload work *@
     <input asp-for="Product.Id" hidden />   @*when Post, Id will always be populated*@
+=======
+<form method="post" class="pt-3">
+>>>>>>> parent of 79e3649 (Added the simple functionality of file upload):BulkyWeb/Areas/Admin/Views/Product/Create.cshtml
     <fieldset class="border">
         <legend class="p-2">@(Model.Product.Id != 0 ? "Update" : "Create" ) Product</legend> @*Dynamically using either word*@
         <div class="p-2">
@@ -45,7 +49,8 @@
         </div>        
         <div class="p-2">
             <label asp-for="Product.ImageUrl" class="form-label"></label>
-            <input type="file" class="form-control" placeholder="www.imageurl.com" autocomplete="off">
+            <input asp-for="Product.ImageUrl" class="form-control" placeholder="www.imageurl.com" autocomplete="off">
+            <span asp-validation-for="Product.ImageUrl" class="text-warning"></span>
         </div>
         <div class="p-2">
             <label asp-for="Product.CategoryId" class="form-label"></label>
