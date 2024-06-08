@@ -1,6 +1,6 @@
 ﻿@model ProductVM
 
-<form method="post" class="pt-3">
+<form method="post" class="pt-3" enctype="multipart/form-data"> @* for making file upload work *@
     <fieldset class="border">
         <legend class="p-2">Create Product</legend>
         <div class="p-2">
@@ -45,8 +45,7 @@
         </div>        
         <div class="p-2">
             <label asp-for="Product.ImageUrl" class="form-label"></label>
-            <input asp-for="Product.ImageUrl" class="form-control" placeholder="www.imageurl.com" autocomplete="off">
-            <span asp-validation-for="Product.ImageUrl" class="text-warning"></span>
+            <input type="file" class="form-control" placeholder="www.imageurl.com" autocomplete="off">
         </div>
         <div class="p-2">
             <label asp-for="Product.CategoryId" class="form-label"></label>
