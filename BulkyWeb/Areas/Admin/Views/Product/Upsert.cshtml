@@ -1,8 +1,9 @@
 ﻿@model ProductVM
 
 <form method="post" class="pt-3" enctype="multipart/form-data"> @* for making file upload work *@
+    <input asp-for="Product.Id" hidden />   @*when Post, Id will always be populated*@
     <fieldset class="border">
-        <legend class="p-2">Create Product</legend>
+        <legend class="p-2">@(Model.Product.Id != 0 ? "Update" : "Create" ) Product</legend> @*Dynamically using either word*@
         <div class="p-2">
             <label asp-for="Product.Title" class="form-label mt-2"></label>
             <input asp-for="Product.Title" class="form-control" placeholder="The Ramayana">
@@ -58,7 +59,15 @@
         </div>
 
         <div class=" p-2">
-            <button type="submit" class="btn btn-primary">Create</button>
+            @* making the button text dynamic *@
+            @if(Model.Product.Id != 0)
+            {
+                <button type="submit" class="btn btn-primary">Update</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-primary">Create</button>
+            }
             <a asp-controller="Product" asp-action="Index" class="btn btn-outline-light">
                 Return to List
             </a>

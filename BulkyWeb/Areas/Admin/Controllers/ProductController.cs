@@ -30,7 +30,8 @@ namespace BulkyWeb.Areas.Admin.Controllers
 
         //-------------------------------------------------------------------------------------
         //Create action methods
-        public IActionResult Create()
+        //I later changed it to the upsert functionality (NOTE: need to change the Create view name to Upsert)
+        public IActionResult Upsert(int? id)
         {
             //using projection feature
             IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll()
@@ -48,13 +49,24 @@ namespace BulkyWeb.Areas.Admin.Controllers
                 Product = new Product()
             };
 
-            return View(productVM);
+            //the actual upsert functionality
+            if(id == null || id == 0)   //create
+            {
+                return View(productVM);
+            }
+            else    //update 
+            { 
+                productVM.Product = _unitOfWork.Product.Get(u => u.Id == id);
+                return View(productVM);
+            }
+
+            
         }
 
+        //changed this from Create to Upsert as well
         [HttpPost]
-        public IActionResult Create(ProductVM productVM)
+        public IActionResult Create(ProductVM productVM, IFormFile? file)   //IFormFile because on file submission, a file is being uploaded
         {
-
             if (ModelState.IsValid)
             {
                 _unitOfWork.Product.Add(productVM.Product);
@@ -79,34 +91,34 @@ namespace BulkyWeb.Areas.Admin.Controllers
         }
 
         //-------------------------------------------------------------------------------------
-        //Edit action methods
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-                return NotFound();
+        //Edit action methods   --> these are not needed once you start using Upsert above (Also dont need Edit view)
+        //public IActionResult Edit(int? id)
+        //{
+        //    if (id == null || id == 0)
+        //        return NotFound();
 
-            Product? productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
-            if (productFromDb == null)
-                return NotFound();
+        //    Product? productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
+        //    if (productFromDb == null)
+        //        return NotFound();
 
-            return View(productFromDb);
-        }
+        //    return View(productFromDb);
+        //}
 
-        [HttpPost]
-        public IActionResult Edit(Product obj)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Product.Update(obj);
-                _unitOfWork.Save();
+        //[HttpPost]
+        //public IActionResult Edit(Product obj)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _unitOfWork.Product.Update(obj);
+        //        _unitOfWork.Save();
 
-                TempData["success"] = "Product edited successfully";   //for notifications
+        //        TempData["success"] = "Product edited successfully";   //for notifications
 
-                return RedirectToAction("Index");
-            }
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View();
-        }
+        //    return View();
+        //}
 
         //-------------------------------------------------------------------------------------
         //Delete action methods

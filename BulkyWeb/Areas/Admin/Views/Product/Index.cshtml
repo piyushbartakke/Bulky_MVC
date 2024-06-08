@@ -15,7 +15,7 @@
             <h2 class="tst-primary">Product List</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="Product" asp-action="Create" class="btn btn-outline-light"><i class="bi bi-plus-circle"></i> Create New Product</a>
+            <a asp-controller="Product" asp-action="Upsert" class="btn btn-outline-light"><i class="bi bi-plus-circle"></i> Create New Product</a>
         </div>
     </div>
     <table class="table table-bordered table-striped">
@@ -40,7 +40,7 @@
                     <td></td>
                     <td>
                         <div class="btn-group" role="group">
-                            <a asp-controller="Product" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary">
+                            <a asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-primary">
                                 @*asp-route can have anything in front of it. I used id since that is used in controller*@
                                 <i class="bi bi-pencil-square"></i> Edit
                             </a>
